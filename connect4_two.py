@@ -55,7 +55,7 @@ def connect4(p1, p2, ui=True, noise = 0.0):
     #board.print_board()
     time_p1 = time_p2 = 0
     moves_count_p1 = moves_count_p2 = 0
-    print("Starting game",type(p1)," vs. ",type(p2), "noise:",noise)
+    print("Starting game",p1,p2)
     winner = 0
     while not game_over:
         # Player1's Input
@@ -64,11 +64,8 @@ def connect4(p1, p2, ui=True, noise = 0.0):
             col = p1.get_move(board)
             # get random number between 0 and 1
             if random.random() < noise:
-                print("*",end = "")
-                options = [i for i in range(board.COLUMN_COUNT) if board.is_valid_location(i)]
+                options = [i for i in range(board.COLUMNS) if board.is_valid_location(i)]
                 col = random.choice(options)
-                if 'currentNode' in p1.__dir__():
-                    p1.currentNode = None
 
             if board.is_valid_location(col):
                 board.drop_piece(col, board.PLAYER1_PIECE)
@@ -77,7 +74,6 @@ def connect4(p1, p2, ui=True, noise = 0.0):
                 winner = check_win(board.PLAYER1_PIECE)
                 if winner != False:
                     game_over = True
-                    
                 
         end = time.perf_counter()
 
@@ -88,12 +84,8 @@ def connect4(p1, p2, ui=True, noise = 0.0):
         if turn == board.PLAYER2_PIECE and not game_over:
             col = p2.get_move(board)
             if random.random() < noise:
-                print("*",end = "")
-                options = [i for i in range(board.COLUMN_COUNT) if board.is_valid_location(i)]
+                options = [i for i in range(board.COLUMNS) if board.is_valid_location(i)]
                 col = random.choice(options)
-                if 'currentNode' in p2.__dir__():
-                    p2.currentNode = None
-
 
 
             if board.is_valid_location(col):
@@ -111,7 +103,11 @@ def connect4(p1, p2, ui=True, noise = 0.0):
         if game_over:
             #pygame.time.wait(1000)
 
-            print(f"P1 time: " + "{:.2f}".format(round(time_p1, 2)) + " seconds", "MOVES: "+ str(moves_count_p1), end = " | ")
-            print("P2 time" + "{:.2f}".format(round(time_p2, 2)) + " seconds", "MOVES: "+ str(moves_count_p2))
+            print("\nPlayer 1")
+            print("TIME: " + "{:.2f}".format(round(time_p1, 2)) + " seconds")
+            print("MOVES: "+ str(moves_count_p1))
+            print("\nPlayer 2")
+            print("TIME: " + "{:.2f}".format(round(time_p2, 2)) + " seconds")
+            print("MOVES: "+ str(moves_count_p2))
             return winner
 

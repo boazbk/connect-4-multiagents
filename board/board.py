@@ -54,7 +54,8 @@ class Board:
                 return r
 
     def print_board(self):
-        print(np.flip(self.board, 0))
+        pass
+        #print(np.flip(self.board, 0))
 
     def winning_move(self, piece):
         # Check horizontal locations for win
